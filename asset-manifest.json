@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/saltzapp/static/css/main.073c9b0a.css",
+    "main.js": "/saltzapp/static/js/main.a0a60965.js",
+    "static/js/787.9ff2f0e8.chunk.js": "/saltzapp/static/js/787.9ff2f0e8.chunk.js",
+    "static/media/logo.svg": "/saltzapp/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/saltzapp/index.html",
+    "main.073c9b0a.css.map": "/saltzapp/static/css/main.073c9b0a.css.map",
+    "main.a0a60965.js.map": "/saltzapp/static/js/main.a0a60965.js.map",
+    "787.9ff2f0e8.chunk.js.map": "/saltzapp/static/js/787.9ff2f0e8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.a0a60965.js"
+  ]
+}
