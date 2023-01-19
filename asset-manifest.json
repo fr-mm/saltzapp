@@ -1,16 +1,24 @@
 {
   "files": {
-    "main.css": "/saltzapp/static/css/main.073c9b0a.css",
-    "main.js": "/saltzapp/static/js/main.a0a60965.js",
+    "main.css": "/saltzapp/static/css/main.aa944567.css",
+    "main.js": "/saltzapp/static/js/main.91a9cdf1.js",
     "static/js/787.9ff2f0e8.chunk.js": "/saltzapp/static/js/787.9ff2f0e8.chunk.js",
-    "static/media/logo.svg": "/saltzapp/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/media/fa-solid-900.ttf": "/saltzapp/static/media/fa-solid-900.b1a653db79258eeccc5d.ttf",
+    "static/media/fa-brands-400.ttf": "/saltzapp/static/media/fa-brands-400.450a5c898f0b184b968b.ttf",
+    "static/media/fa-solid-900.woff2": "/saltzapp/static/media/fa-solid-900.41c0f706d8ce93933771.woff2",
+    "static/media/fa-brands-400.woff2": "/saltzapp/static/media/fa-brands-400.3ac6859b28be946745f9.woff2",
+    "static/media/fa-regular-400.ttf": "/saltzapp/static/media/fa-regular-400.3cd9fb8fcec4ad0f99d4.ttf",
+    "static/media/fa-regular-400.woff2": "/saltzapp/static/media/fa-regular-400.1f3772178d9e5bed38a6.woff2",
+    "static/media/logo.png": "/saltzapp/static/media/logo.867096a16e4951060e0c.png",
+    "static/media/fa-v4compatibility.ttf": "/saltzapp/static/media/fa-v4compatibility.e314b618134d5be20996.ttf",
+    "static/media/fa-v4compatibility.woff2": "/saltzapp/static/media/fa-v4compatibility.4ee7f902d88f819e251c.woff2",
     "index.html": "/saltzapp/index.html",
-    "main.073c9b0a.css.map": "/saltzapp/static/css/main.073c9b0a.css.map",
-    "main.a0a60965.js.map": "/saltzapp/static/js/main.a0a60965.js.map",
+    "main.aa944567.css.map": "/saltzapp/static/css/main.aa944567.css.map",
+    "main.91a9cdf1.js.map": "/saltzapp/static/js/main.91a9cdf1.js.map",
     "787.9ff2f0e8.chunk.js.map": "/saltzapp/static/js/787.9ff2f0e8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.a0a60965.js"
+    "static/css/main.aa944567.css",
+    "static/js/main.91a9cdf1.js"
   ]
 }
