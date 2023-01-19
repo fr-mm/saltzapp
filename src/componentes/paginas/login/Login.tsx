@@ -10,9 +10,12 @@ import {
   MDBBtn,
   MDBInput,
 } from "mdb-react-ui-kit";
+import api from "../../../api";
 
 function Login() {
   const [justifyActive, setJustifyActive] = useState("tab1");
+  const [loginNome, setLoginNome] = useState("");
+  const [loginSenha, setLoginSenha] = useState("");
 
   const handleJustifyClick = (value: any) => {
     if (value === justifyActive) {
@@ -21,6 +24,10 @@ function Login() {
 
     setJustifyActive(value);
   };
+
+  async function fazerLogin() {
+    await api.fazerLogin(loginNome, loginSenha);
+  }
 
   return (
     <div className="login-container">
@@ -50,15 +57,26 @@ function Login() {
 
         <MDBTabsContent>
           <MDBTabsPane show={justifyActive === "tab1"}>
-            <MDBInput wrapperClass="mb-4" label="Nome" id="form1" type="text" />
+            <MDBInput
+              wrapperClass="mb-4"
+              label="Nome"
+              id="form1"
+              type="text"
+              value={loginNome}
+              onChange={(e) => setLoginNome(e.target.value)}
+            />
             <MDBInput
               wrapperClass="mb-4"
               label="Senha"
               id="form2"
               type="password"
+              value={loginSenha}
+              onChange={(e) => setLoginSenha(e.target.value)}
             />
 
-            <MDBBtn className="mb-4 w-100">Entrar</MDBBtn>
+            <MDBBtn onClick={fazerLogin} className="mb-4 w-100">
+              Entrar
+            </MDBBtn>
           </MDBTabsPane>
 
           <MDBTabsPane show={justifyActive === "tab2"}>
