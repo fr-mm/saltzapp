@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import PaginaEnum from "../../enums/paginaEnum";
 import { RootState } from "../../store";
+import NavBar from "../navBar/NavBar";
 import Login from "../paginas/login/Login";
 import "./App.css";
 
@@ -9,7 +10,10 @@ function App(): JSX.Element {
 
   return (
     <div className="App">
-      <Pagina pagina={pagina} />
+      <NavBar />
+      <div className="app-corpo">
+        <Pagina pagina={pagina} />
+      </div>
     </div>
   );
 }

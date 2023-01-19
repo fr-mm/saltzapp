@@ -1,0 +1,7 @@
+.nav-bar {
+  display: flex;
+  height: 4.7rem;
+  width: 100%;
+  box-shadow: 0px 1px 10px #d94d9c;
+  padding: 0rem 18rem 0.5rem 18rem;
+}
