@@ -1,3 +1,13 @@
 .login-container {
   width: 64rem;
+  margin-bottom: 15rem;
+}
+
+.nav-link.active {
+  background-color: #e77fb9 !important;
+}
+
+.btn-primary.mb-4 {
+  background-color: #d94d9c !important;
+  box-shadow: 0 4px 9px -4px #d94d9c !important;
 }
