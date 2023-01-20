@@ -43,6 +43,9 @@ function Login() {
           token: usuario.token,
         })
       );
+      localStorage.setItem("id", usuario.id);
+      localStorage.setItem("nome", usuario.nome);
+      localStorage.setItem("token", usuario.token);
       dispatch(reducers.pagina.mostrarChat());
     } catch (erro) {
       if (erro instanceof UsuarioOuSenhaInvalido) {
