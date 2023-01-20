@@ -1,0 +1,40 @@
+.mensagem-container {
+  display: flex;
+  width: 100%;
+}
+
+.mensagem-container.enviada {
+  justify-content: flex-end;
+}
+
+.mensagem-container.recebida {
+  justify-content: flex-start;
+}
+
+.mensagem {
+  display: flex;
+  align-self: flex-end;
+  border-radius: 10px;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  margin: 0.2rem 2rem 0.2rem 2rem;
+}
+
+.mensagem.enviada {
+  background-color: #faaad7;
+  padding-left: 1rem;
+  padding-right: 0.4rem;
+}
+
+.mensagem.recebida {
+  background-color: #e8e8e8;
+  padding-left: 0.4rem;
+  padding-right: 1rem;
+}
+
+.enviada-em {
+  display: flex;
+  font-size: 0.7rem;
+  margin: 0 0.5rem 0 0.5rem;
+  align-items: center;
+}

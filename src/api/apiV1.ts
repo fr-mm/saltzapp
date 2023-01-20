@@ -1,4 +1,4 @@
-import { UltimaMensagem, Usuario } from "../entidades";
+import { Mensagem, UltimaMensagem, Usuario } from "../entidades";
 import { ServidorInacessivelErro, UsuarioOuSenhaInvalido } from "../erros";
 
 interface UsuarioCriado {
@@ -90,6 +90,32 @@ class ApiV1 {
       destino_id: destinoId,
       texto,
     });
+  }
+
+  public async trazerMensagens(
+    usuarioId: string,
+    outroUsuarioId: string
+  ): Promise<Mensagem[]> {
+    const response = await this.fetch(
+      "usuarios/" + usuarioId + "/" + outroUsuarioId
+    );
+    switch (response.status) {
+      case 200:
+        const body = await response.json();
+        const mensagens = [];
+        for (let otd of body) {
+          const mensagem = new Mensagem(
+            otd["origem_id"],
+            otd["destino_id"],
+            otd["texto"],
+            otd["enviada_em"]
+          );
+          mensagens.push(mensagem);
+        }
+        return mensagens;
+      default:
+        throw new ServidorInacessivelErro();
+    }
   }
 }
 

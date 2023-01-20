@@ -18,6 +18,7 @@ function MenuUsuario(): JSX.Element {
   const dispatch = useDispatch();
 
   function sair(): void {
+    ["id", "nome", "token"].map((item) => localStorage.setItem(item, ""));
     dispatch(reducers.usuario.sair());
     dispatch(reducers.pagina.mostrarLogin());
   }
