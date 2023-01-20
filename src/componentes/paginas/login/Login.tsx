@@ -11,11 +11,17 @@ import {
   MDBInput,
 } from "mdb-react-ui-kit";
 import api from "../../../api";
+import { useDispatch } from "react-redux";
+import { reducers } from "../../../store";
+import { UsuarioOuSenhaInvalido } from "../../../erros";
 
 function Login() {
   const [justifyActive, setJustifyActive] = useState("tab1");
   const [loginNome, setLoginNome] = useState("");
   const [loginSenha, setLoginSenha] = useState("");
+  const [cadastroNome, setCadastroNome] = useState("");
+  const [cadastroSenha, setCadastroSenha] = useState("");
+  const dispatch = useDispatch();
 
   const handleJustifyClick = (value: any) => {
     if (value === justifyActive) {
@@ -25,8 +31,41 @@ function Login() {
     setJustifyActive(value);
   };
 
-  async function fazerLogin() {
-    await api.fazerLogin(loginNome, loginSenha);
+  async function fazerLogin(nome?: string, senha?: string) {
+    nome = nome === undefined ? loginNome : nome;
+    senha = senha === undefined ? loginSenha : senha;
+    try {
+      const usuario = await api.fazerLogin(loginNome, loginSenha);
+      dispatch(
+        reducers.usuario.logar({
+          id: usuario.id,
+          nome: usuario.nome,
+          token: usuario.token,
+        })
+      );
+    } catch (erro) {
+      if (erro instanceof UsuarioOuSenhaInvalido) {
+        alert("Usuário ou senha inválidos");
+      } else {
+        alert("Servidor inacessível");
+      }
+    }
+  }
+
+  async function cadastrar() {
+    try {
+      const usuarioCriado = await api.cadastrarUsuario(
+        cadastroNome,
+        cadastroSenha
+      );
+      await fazerLogin(usuarioCriado.nome, usuarioCriado.senha);
+    } catch (erro) {
+      if (erro instanceof UsuarioOuSenhaInvalido) {
+        alert("Usuário ou senha inválidos");
+      } else {
+        alert("Servidor inacessível");
+      }
+    }
   }
 
   return (
@@ -74,21 +113,32 @@ function Login() {
               onChange={(e) => setLoginSenha(e.target.value)}
             />
 
-            <MDBBtn onClick={fazerLogin} className="mb-4 w-100">
+            <MDBBtn className="mb-4 w-100" onClick={async () => fazerLogin()}>
               Entrar
             </MDBBtn>
           </MDBTabsPane>
 
           <MDBTabsPane show={justifyActive === "tab2"}>
-            <MDBInput wrapperClass="mb-4" label="Nome" id="form1" type="text" />
+            <MDBInput
+              wrapperClass="mb-4"
+              label="Nome"
+              id="form1"
+              type="text"
+              value={cadastroNome}
+              onChange={(e) => setCadastroNome(e.target.value)}
+            />
             <MDBInput
               wrapperClass="mb-4"
               label="Senha"
               id="form1"
               type="password"
+              value={cadastroSenha}
+              onChange={(e) => setCadastroSenha(e.target.value)}
             />
 
-            <MDBBtn className="mb-4 w-100">Cadastrar</MDBBtn>
+            <MDBBtn className="mb-4 w-100" onClick={cadastrar}>
+              Cadastrar
+            </MDBBtn>
           </MDBTabsPane>
         </MDBTabsContent>
       </MDBContainer>
