@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import PaginaEnum from "../../enums/paginaEnum";
 
 const initialState = {
-  visivel: PaginaEnum.LOGIN,
+  visivel: PaginaEnum.CHAT,
 };
 
 const paginaSlice = createSlice({

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import PaginaEnum from "../../enums/paginaEnum";
 import { RootState } from "../../store";
 import NavBar from "../navBar/NavBar";
-import Login from "../paginas/login/Login";
+import { Chat, Login } from "../paginas";
 import "./App.css";
 
 function App(): JSX.Element {
@@ -26,6 +26,8 @@ function Pagina(props: PaginaProps): JSX.Element {
   switch (props.pagina) {
     case PaginaEnum.LOGIN:
       return <Login />;
+    case PaginaEnum.CHAT:
+      return <Chat />;
     default:
       return <></>;
   }

@@ -1,12 +1,14 @@
 .App {
   text-align: center;
   display: flex;
+  flex: 1;
   flex-direction: column;
+  height: 100%;
 }
 
 .app-corpo {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100%;
 }
