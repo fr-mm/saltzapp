@@ -17,5 +17,5 @@
   width: 30%;
   border-right: 1.5px solid lightgray;
   overflow-y: scroll;
-  background-color: inherit;
+  border-radius: 10px 0 0 10px;
 }

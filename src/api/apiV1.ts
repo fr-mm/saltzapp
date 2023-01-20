@@ -6,13 +6,6 @@ interface UsuarioCriado {
   senha: string;
 }
 
-interface IUltimaMensagem {
-  nome: string;
-  id: string;
-  enviada: Date;
-  texto: string;
-}
-
 class ApiV1 {
   private static url = "https://ten-laws-tell-179-215-242-196.loca.lt/api_v1/";
 

@@ -43,6 +43,7 @@ function Login() {
           token: usuario.token,
         })
       );
+      dispatch(reducers.pagina.mostrarChat());
     } catch (erro) {
       if (erro instanceof UsuarioOuSenhaInvalido) {
         alert("Usuário ou senha inválidos");
