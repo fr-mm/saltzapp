@@ -10,6 +10,7 @@ const initialState = {
     id: null as null | string,
     nome: null as null | string,
   },
+  mudouFoco: false,
 };
 
 const conversaSlice = createSlice({
@@ -20,8 +21,14 @@ const conversaSlice = createSlice({
       state.comUsuario.id = action.payload.id;
       state.comUsuario.nome = action.payload.nome;
     },
+    mudarFoco(state) {
+      state.mudouFoco = true;
+    },
+    manterFoco(state) {
+      state.mudouFoco = false;
+    },
   },
 });
 
-export const { conversarCom } = conversaSlice.actions;
+export const { conversarCom, mudarFoco, manterFoco } = conversaSlice.actions;
 export default conversaSlice.reducer;

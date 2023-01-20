@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { KeyboardEventHandler, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import api from "../../api";
-import { RootState } from "../../store";
+import { reducers, RootState } from "../../store";
 import "./InputTexto.css";
 
 function InputTexto(): JSX.Element {
@@ -10,6 +10,8 @@ function InputTexto(): JSX.Element {
     (state: RootState) => state.conversa.comUsuario
   );
   const usuarioId = useSelector((state: RootState) => state.usuario.id);
+  const mudouFoco = useSelector((state: RootState) => state.conversa.mudouFoco);
+  const dispatch = useDispatch();
 
   function ativo(): boolean {
     return conversandoCom.id !== null;
@@ -41,7 +43,15 @@ function InputTexto(): JSX.Element {
       conversandoCom.id as string,
       mensagem
     );
+    setMensagem("");
   }
+
+  useEffect(() => {
+    if (mudouFoco) {
+      setMensagem("");
+      dispatch(reducers.conversa.manterFoco());
+    }
+  }, [mudouFoco, setMensagem, dispatch]);
 
   return (
     <div className="input-texto-container">
@@ -52,6 +62,7 @@ function InputTexto(): JSX.Element {
         value={mensagem}
         onChange={(e) => setMensagem(e.target.value)}
         disabled={!ativo()}
+        onKeyDown={(e) => (e.key === "Enter" ? enviar() : undefined)}
       ></input>
       <div className={enviarClassName()} onClick={enviar}></div>
     </div>
