@@ -1,3 +1,4 @@
-import usuario from "./usuario";
+import UltimaMensagem from "./ultimaMensagem";
+import Usuario from "./usuario";
 
-export { usuario };
+export { Usuario, UltimaMensagem };

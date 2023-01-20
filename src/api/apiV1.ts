@@ -1,9 +1,16 @@
-import Usuario from "../entidades/usuario";
+import { UltimaMensagem, Usuario } from "../entidades";
 import { ServidorInacessivelErro, UsuarioOuSenhaInvalido } from "../erros";
 
 interface UsuarioCriado {
   nome: string;
   senha: string;
+}
+
+interface IUltimaMensagem {
+  nome: string;
+  id: string;
+  enviada: Date;
+  texto: string;
 }
 
 class ApiV1 {
@@ -52,6 +59,29 @@ class ApiV1 {
         return { nome: nome, senha: senha };
       case 400:
         throw new UsuarioOuSenhaInvalido();
+      default:
+        throw new ServidorInacessivelErro();
+    }
+  }
+
+  public async trazerUltimasMensagens(
+    usuarioId: string
+  ): Promise<UltimaMensagem[]> {
+    const response = await this.fetch("usuarios/" + usuarioId);
+    switch (response.status) {
+      case 200:
+        const body = await response.json();
+        const ultimasMensagens = [];
+        for (let otd of body) {
+          const ultimaMensagem = new UltimaMensagem(
+            otd["id_outro_usuario"],
+            otd["nome_outro_usuario"],
+            otd["texto"],
+            otd["enviada_em"]
+          );
+          ultimasMensagens.push(ultimaMensagem);
+        }
+        return ultimasMensagens;
       default:
         throw new ServidorInacessivelErro();
     }
