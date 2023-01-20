@@ -79,6 +79,18 @@ class ApiV1 {
         throw new ServidorInacessivelErro();
     }
   }
+
+  public enviarMensagem(
+    origemId: string,
+    destinoId: string,
+    texto: string
+  ): void {
+    this.fetch("mensagens/", "POST", {
+      origem_id: origemId,
+      destino_id: destinoId,
+      texto,
+    });
+  }
 }
 
 export default ApiV1;

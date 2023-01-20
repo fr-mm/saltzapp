@@ -1,5 +1,7 @@
 import "./Contato.css";
 import icone from "../../static/icone-usuario.png";
+import { useDispatch } from "react-redux";
+import { reducers } from "../../store";
 
 interface ContatoProps {
   id: string;
@@ -26,8 +28,16 @@ function formatarData(data: Date): string {
 }
 
 function Contato(props: ContatoProps): JSX.Element {
+  const dispatch = useDispatch();
+
+  function conversar(): void {
+    dispatch(
+      reducers.conversa.conversarCom({ id: props.id, nome: props.nome })
+    );
+  }
+
   return (
-    <div className="contato">
+    <div className="contato" onClick={conversar}>
       <img src={icone} alt="icone" className="icone-usuario"></img>
       <div className="contato-conteudo">
         <div className="contato-nome">{props.nome}</div>

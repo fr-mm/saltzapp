@@ -1,45 +1,41 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import api from "../../../api";
-import { UltimaMensagem } from "../../../entidades";
-import { RootState } from "../../../store";
-import { Contato } from "../../contato";
 import "./Chat.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import Contatos from "../../contatos";
+import icone from "../../../static/icone-usuario.png";
+import InputTexto from "../../inputTexto";
+import Conversa from "../../conversa";
 
 function Chat(): JSX.Element {
-  const [carregou, setCarregou] = useState(false);
-  const [ultimasMensagens, setUltimasMensagens] = useState(
-    [] as UltimaMensagem[]
-  );
-  const usuario = useSelector((state: RootState) => state.usuario);
-
-  async function carregarUltimasMensagens() {
-    const mensagens = await api.trazerUltimasMensagens(usuario.id as string);
-    setUltimasMensagens(mensagens);
-    setCarregou(true);
-  }
-
-  useEffect(() => {
-    if (!carregou) {
-      carregarUltimasMensagens();
-    }
-  });
-
   return (
     <div className="chat-container">
-      <div className="contatos">
-        {ultimasMensagens.map((ultimaMensagem) => (
-          <Contato
-            key={ultimaMensagem + ultimaMensagem.contatoId}
-            id={ultimaMensagem.contatoId}
-            nome={ultimaMensagem.contatoNome}
-            ultimaMensagem={ultimaMensagem.texto}
-            utlimaMensagemEnviadaEm={ultimaMensagem.enviadaEm}
-          />
-        ))}
+      <Contatos />
+      <div className="main">
+        <div className="cabecalho">
+          <ConteudoCabecalho />
+        </div>
+        <Conversa />
+        <InputTexto />
       </div>
     </div>
   );
+}
+
+function ConteudoCabecalho(): JSX.Element {
+  const conversandoCom = useSelector(
+    (state: RootState) => state.conversa.comUsuario
+  );
+
+  if (conversandoCom.id !== null) {
+    return (
+      <div className="conteudo-cabecalho contato-nome">
+        <img className="icone-usuario" src={icone} alt="icone usuario"></img>
+        {conversandoCom.nome}
+      </div>
+    );
+  } else {
+    return <></>;
+  }
 }
 
 export default Chat;
