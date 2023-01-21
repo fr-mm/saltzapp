@@ -20,6 +20,7 @@ class ApiV1 {
       method: metodo,
       headers: {
         "Content-Type": "application/json",
+        "Bypass-Tunnel-Reminder": "",
       },
       body: JSON.stringify(payload),
     });
