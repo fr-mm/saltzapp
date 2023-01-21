@@ -14,6 +14,7 @@ import api from "../../../api";
 import { useDispatch } from "react-redux";
 import { reducers } from "../../../store";
 import { UsuarioOuSenhaInvalido } from "../../../erros";
+import Alerta from "../../alerta";
 
 function Login() {
   const [justifyActive, setJustifyActive] = useState("tab1");
@@ -49,9 +50,9 @@ function Login() {
       dispatch(reducers.pagina.mostrarChat());
     } catch (erro) {
       if (erro instanceof UsuarioOuSenhaInvalido) {
-        alert("Usuário ou senha inválidos");
+        dispatch(reducers.alerta.mostrar("Usuário ou senha inválidos"));
       } else {
-        alert("Servidor inacessível");
+        dispatch(reducers.alerta.mostrar("Servidor inacessível"));
       }
     }
   }
@@ -65,15 +66,16 @@ function Login() {
       await fazerLogin(usuarioCriado.nome, usuarioCriado.senha);
     } catch (erro) {
       if (erro instanceof UsuarioOuSenhaInvalido) {
-        alert("Usuário ou senha inválidos");
+        dispatch(reducers.alerta.mostrar("Usuário ou senha inválidos"));
       } else {
-        alert("Servidor inacessível");
+        dispatch(reducers.alerta.mostrar("Servidor inacessível"));
       }
     }
   }
 
   return (
     <div className="login-container">
+      <Alerta />
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
         <MDBTabs
           pills
