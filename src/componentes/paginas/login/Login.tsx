@@ -66,7 +66,7 @@ function Login() {
       await fazerLogin(usuarioCriado.nome, usuarioCriado.senha);
     } catch (erro) {
       if (erro instanceof UsuarioOuSenhaInvalido) {
-        dispatch(reducers.alerta.mostrar("Usuário ou senha inválidos"));
+        dispatch(reducers.alerta.mostrar(erro.message));
       } else {
         dispatch(reducers.alerta.mostrar("Servidor inacessível"));
       }

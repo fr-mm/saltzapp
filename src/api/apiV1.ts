@@ -85,7 +85,8 @@ class ApiV1 {
       case 201:
         return { nome: nome, senha: senha };
       case 400:
-        throw new UsuarioOuSenhaInvalido();
+        const texto = await response.json();
+        throw new UsuarioOuSenhaInvalido(texto);
       default:
         throw new ServidorInacessivelErro();
     }

@@ -13,7 +13,9 @@ function Alerta(): JSX.Element {
 
   function className(): string {
     let name = "alert alert-simple alert-danger ";
-    name += alerta.visivel ? "mostrar" : "esconder";
+    if (!alerta.virgem) {
+      name += alerta.visivel ? "mostrar" : "esconder";
+    }
     return name;
   }
 

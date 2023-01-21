@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const initialState = {
   mensagem: "",
   visivel: false,
+  virgem: true,
 };
 
 const alertaSlice = createSlice({
@@ -12,6 +13,7 @@ const alertaSlice = createSlice({
     mostrar(state, action: PayloadAction<string>) {
       state.mensagem = action.payload;
       state.visivel = true;
+      state.virgem = false;
     },
     esconder(state) {
       state.visivel = false;
