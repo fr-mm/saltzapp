@@ -7,10 +7,16 @@ interface UsuarioCriado {
 }
 
 class ApiV1 {
-  private static url = "https://ten-laws-tell-179-215-242-196.loca.lt/api_v1/";
+  private static readonly URL_BASE =
+    "https://two-spoons-help-179-215-242-196.loca.lt";
+  private readonly url: string;
+
+  constructor() {
+    this.url = ApiV1.URL_BASE + "/api_v1/";
+  }
 
   private async fetch(rota: string, metodo?: string, payload?: any) {
-    return await fetch(`${ApiV1.url}${rota}`, {
+    return await fetch(`${this.url}${rota}`, {
       method: metodo,
       headers: {
         "Content-Type": "application/json",
