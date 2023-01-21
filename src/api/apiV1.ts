@@ -14,8 +14,8 @@ class Rota {
 
   public static usuario(id: string, outroUsuarioId?: string) {
     const complemento =
-      outroUsuarioId !== undefined ? outroUsuarioId + "/" : "";
-    return this.usuarios + id + "/" + complemento;
+      outroUsuarioId !== undefined ? "/" + outroUsuarioId : "";
+    return this.usuarios + id + complemento;
   }
 }
 

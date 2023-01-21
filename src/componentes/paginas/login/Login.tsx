@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { reducers } from "../../../store";
 import { UsuarioOuSenhaInvalido } from "../../../erros";
 import Alerta from "../../alerta";
+import Loader from "../../loader";
 
 function Login() {
   const [justifyActive, setJustifyActive] = useState("tab1");
@@ -22,6 +23,7 @@ function Login() {
   const [loginSenha, setLoginSenha] = useState("");
   const [cadastroNome, setCadastroNome] = useState("");
   const [cadastroSenha, setCadastroSenha] = useState("");
+  const [mostrarLoader, setMostrarLoader] = useState(false);
   const dispatch = useDispatch();
 
   const handleJustifyClick = (value: any) => {
@@ -33,6 +35,7 @@ function Login() {
   };
 
   async function fazerLogin(nome?: string, senha?: string) {
+    setMostrarLoader(true);
     nome = nome === undefined ? loginNome : nome;
     senha = senha === undefined ? loginSenha : senha;
     try {
@@ -55,6 +58,7 @@ function Login() {
         dispatch(reducers.alerta.mostrar("Servidor inacessível"));
       }
     }
+    setMostrarLoader(false);
   }
 
   async function cadastrar() {
@@ -76,6 +80,7 @@ function Login() {
   return (
     <div className="login-container">
       <Alerta />
+      {mostrarLoader ? <Loader /> : <></>}
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
         <MDBTabs
           pills
