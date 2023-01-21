@@ -51,6 +51,7 @@ function Login() {
       localStorage.setItem("nome", usuario.nome);
       localStorage.setItem("token", usuario.token);
       dispatch(reducers.pagina.mostrarChat());
+      dispatch(reducers.alerta.desativarAnimacao);
     } catch (erro) {
       if (erro instanceof UsuarioOuSenhaInvalido) {
         dispatch(reducers.alerta.mostrar("Usuário ou senha inválidos"));
@@ -133,7 +134,7 @@ function Login() {
             <MDBInput
               wrapperClass="mb-4"
               label="Nome"
-              id="form1"
+              id="form2"
               type="text"
               value={cadastroNome}
               onChange={(e) => setCadastroNome(e.target.value)}
@@ -141,7 +142,7 @@ function Login() {
             <MDBInput
               wrapperClass="mb-4"
               label="Senha"
-              id="form1"
+              id="form3"
               type="password"
               value={cadastroSenha}
               onChange={(e) => setCadastroSenha(e.target.value)}

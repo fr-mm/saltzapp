@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const initialState = {
   mensagem: "",
   visivel: false,
-  virgem: true,
+  animar: false,
 };
 
 const alertaSlice = createSlice({
@@ -13,13 +13,16 @@ const alertaSlice = createSlice({
     mostrar(state, action: PayloadAction<string>) {
       state.mensagem = action.payload;
       state.visivel = true;
-      state.virgem = false;
+      state.animar = true;
     },
     esconder(state) {
       state.visivel = false;
     },
+    desativarAnimacao(state) {
+      state.animar = false;
+    },
   },
 });
 
-export const { mostrar, esconder } = alertaSlice.actions;
+export const { mostrar, esconder, desativarAnimacao } = alertaSlice.actions;
 export default alertaSlice.reducer;
