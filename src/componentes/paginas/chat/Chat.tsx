@@ -5,8 +5,14 @@ import Contatos from "../../contatos";
 import icone from "../../../static/icone-usuario.png";
 import InputTexto from "../../inputTexto";
 import Conversa from "../../conversa";
+import { useEffect } from "react";
 
 function Chat(): JSX.Element {
+  useEffect(() => {
+    const interval = setInterval(() => {}, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="chat-container">
       <Contatos />

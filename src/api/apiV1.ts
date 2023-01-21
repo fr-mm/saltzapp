@@ -8,7 +8,7 @@ interface UsuarioCriado {
 
 class ApiV1 {
   private static readonly URL_BASE =
-    "https://three-dogs-hunt-179-215-242-196.loca.lt";
+    "https://three-eagles-tell-179-215-242-196.loca.lt";
   private readonly url: string;
 
   constructor() {
@@ -20,7 +20,6 @@ class ApiV1 {
       method: metodo,
       headers: {
         "Content-Type": "application/json",
-        //"Bypass-Tunnel-Reminder": "",
       },
       body: JSON.stringify(payload),
     });

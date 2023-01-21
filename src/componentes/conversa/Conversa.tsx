@@ -19,14 +19,17 @@ function Conversa(): JSX.Element {
     setMensagens(mensagens);
   }
 
-  function carregarMensagensQuandoFocoMudou(): void {
-    if (conversa.mudouFoco) {
+  function atualizarMensagens(): void {
+    if (conversa.comUsuario.id !== null) {
       carregarMensagens();
     }
   }
 
   useEffect(() => {
-    carregarMensagensQuandoFocoMudou();
+    const interval = setInterval(() => {
+      atualizarMensagens();
+    }, 1000);
+    return () => clearInterval(interval);
   });
 
   return (
