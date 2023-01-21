@@ -28,7 +28,7 @@ interface IFetch {
 class ApiV1 {
   readonly url: string;
   readonly pingUrl: string;
-  readonly URL_BASE = "https://full-poets-arrive-179-215-242-196.loca.lt";
+  readonly URL_BASE = "https://eleven-worms-draw-179-215-242-196.loca.lt";
 
   constructor() {
     this.url = this.URL_BASE + "/api_v1/";

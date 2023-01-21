@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../api";
 import PaginaEnum from "../../enums/paginaEnum";
 import { reducers, RootState } from "../../store";
+import Loader from "../loader";
 import NavBar from "../navBar/NavBar";
 import { Chat, Login } from "../paginas";
 import "./App.css";
@@ -10,6 +11,7 @@ import "./App.css";
 function App(): JSX.Element {
   const dispatch = useDispatch();
   const [carregou, setCarregou] = useState(false);
+  const [mostrarLoader, setMostrarLoader] = useState(true);
 
   function lembrarUsuario() {
     const id = localStorage.getItem("id");
@@ -26,6 +28,8 @@ function App(): JSX.Element {
     const autorizado = await api.localtunnelAcessivel();
     if (!autorizado) {
       window.location.replace(api.pingUrl);
+    } else {
+      setMostrarLoader(false);
     }
   }
 
@@ -43,9 +47,7 @@ function App(): JSX.Element {
   return (
     <div className="App">
       <NavBar />
-      <div className="app-corpo">
-        <Pagina />
-      </div>
+      <div className="app-corpo">{mostrarLoader ? <Loader /> : <Pagina />}</div>
     </div>
   );
 }
