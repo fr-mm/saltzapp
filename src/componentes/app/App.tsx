@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import api from "../../api";
 import PaginaEnum from "../../enums/paginaEnum";
 import { reducers, RootState } from "../../store";
 import NavBar from "../navBar/NavBar";
@@ -10,20 +11,34 @@ function App(): JSX.Element {
   const dispatch = useDispatch();
   const [carregou, setCarregou] = useState(false);
 
+  function lembrarUsuario() {
+    const id = localStorage.getItem("id");
+    const nome = localStorage.getItem("nome");
+    const token = localStorage.getItem("token");
+
+    if (id !== "" && nome !== "" && token !== "") {
+      dispatch(reducers.usuario.logar({ id, nome, token }));
+      dispatch(reducers.pagina.mostrarChat());
+    }
+  }
+
+  async function autorizarLocaltunnel() {
+    const autorizado = await api.localtunnelAcessivel();
+    if (!autorizado) {
+      window.location.replace(api.pingUrl);
+    }
+  }
+
+  const lembrarUsuarioCallback = useCallback(lembrarUsuario, [dispatch]);
+  const autorizarLocaltunnelCallback = useCallback(autorizarLocaltunnel, []);
+
   useEffect(() => {
     if (!carregou) {
-      const id = localStorage.getItem("id");
-      const nome = localStorage.getItem("nome");
-      const token = localStorage.getItem("token");
-
-      if (id !== null && nome !== null && token !== null) {
-        dispatch(reducers.usuario.logar({ id, nome, token }));
-        dispatch(reducers.pagina.mostrarChat());
-      }
-
+      autorizarLocaltunnelCallback();
+      lembrarUsuarioCallback();
       setCarregou(true);
     }
-  }, [carregou, dispatch]);
+  }, [carregou, lembrarUsuarioCallback, autorizarLocaltunnelCallback]);
 
   return (
     <div className="App">

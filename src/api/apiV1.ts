@@ -6,16 +6,36 @@ interface UsuarioCriado {
   senha: string;
 }
 
+class Rota {
+  public static readonly ping = "ping/";
+  public static readonly login = "login/";
+  public static readonly usuarios = "usuarios/";
+  public static readonly mensagens = "mensagens/";
+
+  public static usuario(id: string, outroUsuarioId?: string) {
+    const complemento =
+      outroUsuarioId !== undefined ? outroUsuarioId + "/" : "";
+    return this.usuarios + id + "/" + complemento;
+  }
+}
+
+interface IFetch {
+  rota: string;
+  metodo?: string;
+  payload?: any;
+}
+
 class ApiV1 {
-  private static readonly URL_BASE =
-    "https://three-eagles-tell-179-215-242-196.loca.lt";
-  private readonly url: string;
+  readonly url: string;
+  readonly pingUrl: string;
+  readonly URL_BASE = "https://full-poets-arrive-179-215-242-196.loca.lt";
 
   constructor() {
-    this.url = ApiV1.URL_BASE + "/api_v1/";
+    this.url = this.URL_BASE + "/api_v1/";
+    this.pingUrl = this.url + Rota.ping;
   }
 
-  private async fetch(rota: string, metodo?: string, payload?: any) {
+  private async fetch({ rota, metodo, payload }: IFetch) {
     return await fetch(`${this.url}${rota}`, {
       method: metodo,
       headers: {
@@ -26,9 +46,13 @@ class ApiV1 {
   }
 
   public async fazerLogin(nome: string, senha: string): Promise<Usuario> {
-    const response = await this.fetch("login/", "POST", {
-      username: nome,
-      password: senha,
+    const response = await this.fetch({
+      rota: Rota.login,
+      metodo: "POST",
+      payload: {
+        username: nome,
+        password: senha,
+      },
     });
 
     switch (response.status) {
@@ -48,9 +72,13 @@ class ApiV1 {
     nome: string,
     senha: string
   ): Promise<UsuarioCriado> {
-    const response = await this.fetch("usuarios/", "POST", {
-      nome: nome,
-      senha: senha,
+    const response = await this.fetch({
+      rota: Rota.usuarios,
+      metodo: "POST",
+      payload: {
+        nome: nome,
+        senha: senha,
+      },
     });
 
     switch (response.status) {
@@ -66,7 +94,7 @@ class ApiV1 {
   public async trazerUltimasMensagens(
     usuarioId: string
   ): Promise<UltimaMensagem[]> {
-    const response = await this.fetch("usuarios/" + usuarioId);
+    const response = await this.fetch({ rota: Rota.usuario(usuarioId) });
     switch (response.status) {
       case 200:
         const body = await response.json();
@@ -91,10 +119,14 @@ class ApiV1 {
     destinoId: string,
     texto: string
   ): void {
-    this.fetch("mensagens/", "POST", {
-      origem_id: origemId,
-      destino_id: destinoId,
-      texto,
+    this.fetch({
+      rota: Rota.mensagens,
+      metodo: "POST",
+      payload: {
+        origem_id: origemId,
+        destino_id: destinoId,
+        texto,
+      },
     });
   }
 
@@ -102,9 +134,9 @@ class ApiV1 {
     usuarioId: string,
     outroUsuarioId: string
   ): Promise<Mensagem[]> {
-    const response = await this.fetch(
-      "usuarios/" + usuarioId + "/" + outroUsuarioId
-    );
+    const response = await this.fetch({
+      rota: Rota.usuario(usuarioId, outroUsuarioId),
+    });
     switch (response.status) {
       case 200:
         const body = await response.json();
@@ -122,6 +154,13 @@ class ApiV1 {
       default:
         throw new ServidorInacessivelErro();
     }
+  }
+
+  public async localtunnelAcessivel(): Promise<boolean> {
+    const response = await this.fetch({
+      rota: Rota.ping,
+    });
+    return response.status === 200;
   }
 }
 
