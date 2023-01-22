@@ -1,6 +1,6 @@
 import "./Chat.css";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { reducers, RootState } from "../../../store";
 import Contatos from "../../contatos";
 import icone from "../../../static/icone-usuario.png";
 import InputTexto from "../../inputTexto";
@@ -10,6 +10,7 @@ import { Mensagem, UltimaMensagem } from "../../../entidades";
 import api from "../../../api";
 
 function Chat(): JSX.Element {
+  const tempoDeAtualizacao = 1000;
   const conversandoComId = useSelector(
     (state: RootState) => state.conversa.comUsuario.id
   );
@@ -18,6 +19,7 @@ function Chat(): JSX.Element {
     [] as UltimaMensagem[]
   );
   const [mensagens, setMensagens] = useState([] as Mensagem[]);
+  const dispatch = useDispatch();
 
   async function carregarUltimasMensagens(): Promise<void> {
     const mensagens = await api.trazerUltimasMensagens(usuarioId as string);
@@ -50,13 +52,22 @@ function Chat(): JSX.Element {
       } else {
         carregarUltimasMensagensCallback();
       }
-    }, 1000);
+      if (
+        mensagens[0] !== undefined &&
+        (mensagens[0].destinoId === conversandoComId ||
+          mensagens[0].origemId === conversandoComId)
+      ) {
+        dispatch(reducers.conversa.manterFoco());
+      }
+    }, tempoDeAtualizacao);
 
     return () => clearInterval(interval);
   }, [
     carregarUltimasMensagensCallback,
     carregarMensagensCallback,
     conversandoComId,
+    dispatch,
+    mensagens,
   ]);
 
   return (

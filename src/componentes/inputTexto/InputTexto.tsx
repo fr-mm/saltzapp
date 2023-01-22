@@ -49,7 +49,6 @@ function InputTexto(): JSX.Element {
   useEffect(() => {
     if (mudouFoco) {
       setMensagem("");
-      dispatch(reducers.conversa.manterFoco());
     }
   }, [mudouFoco, setMensagem, dispatch]);
 

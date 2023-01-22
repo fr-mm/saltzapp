@@ -1,4 +1,7 @@
+import { useSelector } from "react-redux";
 import { Mensagem } from "../../entidades";
+import { RootState } from "../../store";
+import Loader from "../loader";
 import MensagemChat from "../mensagemChat";
 import "./Conversa.css";
 
@@ -7,6 +10,17 @@ interface ConversaProps {
 }
 
 function Conversa(props: ConversaProps): JSX.Element {
+  const mudouFoco = useSelector((state: RootState) => state.conversa.mudouFoco);
+
+  if (!mudouFoco) {
+  } else {
+    return (
+      <div className="conversa centralizar">
+        <Loader semMascara={true} />
+      </div>
+    );
+  }
+
   return (
     <div className="conversa">
       {props.mensagens.map((mensagem) => (
@@ -15,4 +29,5 @@ function Conversa(props: ConversaProps): JSX.Element {
     </div>
   );
 }
+
 export default Conversa;
