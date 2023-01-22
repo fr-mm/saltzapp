@@ -26,9 +26,9 @@ function MenuUsuario(): JSX.Element {
   if (usuario.id !== null) {
     return (
       <div className="menu-usuario">
-        <div className="nome-usuario-logado">{usuario.nome}</div>
-        <div className="sair" onClick={sair}>
-          (sair)
+        <div className="item-nav-bar">{usuario.nome}</div>
+        <div className="item-nav-bar clicavel" onClick={sair}>
+          sair
         </div>
       </div>
     );
