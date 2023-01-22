@@ -6,16 +6,27 @@ interface UsuarioCriado {
   senha: string;
 }
 
+class RetornoDeMensagens {
+  constructor(
+    readonly mensagens: Mensagem[],
+    readonly ultimasMensagens: UltimaMensagem[]
+  ) {}
+}
+
 class Rota {
   public static readonly ping = "ping/";
   public static readonly login = "login/";
   public static readonly usuarios = "usuarios/";
   public static readonly mensagens = "mensagens/";
 
-  public static usuario(id: string, outroUsuarioId?: string) {
+  public static usuario(id: string, outroUsuarioId?: string): string {
     const complemento =
       outroUsuarioId !== undefined ? "/" + outroUsuarioId : "";
     return this.usuarios + id + complemento;
+  }
+
+  public static ultimasMensagens(usuarioId: string): string {
+    return Rota.usuario(usuarioId);
   }
 }
 
@@ -95,7 +106,9 @@ class ApiV1 {
   public async trazerUltimasMensagens(
     usuarioId: string
   ): Promise<UltimaMensagem[]> {
-    const response = await this.fetch({ rota: Rota.usuario(usuarioId) });
+    const response = await this.fetch({
+      rota: Rota.ultimasMensagens(usuarioId),
+    });
     switch (response.status) {
       case 200:
         const body = await response.json();
@@ -134,7 +147,7 @@ class ApiV1 {
   public async trazerMensagens(
     usuarioId: string,
     outroUsuarioId: string
-  ): Promise<Mensagem[]> {
+  ): Promise<RetornoDeMensagens> {
     const response = await this.fetch({
       rota: Rota.usuario(usuarioId, outroUsuarioId),
     });
@@ -142,7 +155,7 @@ class ApiV1 {
       case 200:
         const body = await response.json();
         const mensagens = [];
-        for (let otd of body) {
+        for (let otd of body["mensagens"]) {
           const mensagem = new Mensagem(
             otd["origem_id"],
             otd["destino_id"],
@@ -151,7 +164,17 @@ class ApiV1 {
           );
           mensagens.push(mensagem);
         }
-        return mensagens;
+        const ultimasMensagens = [];
+        for (let otd of body["ultimas_mensagens"]) {
+          const ultimaMensagem = new UltimaMensagem(
+            otd["id_outro_usuario"],
+            otd["nome_outro_usuario"],
+            otd["texto"],
+            otd["enviada_em"]
+          );
+          ultimasMensagens.push(ultimaMensagem);
+        }
+        return new RetornoDeMensagens(mensagens, ultimasMensagens);
       default:
         throw new ServidorInacessivelErro();
     }
