@@ -113,6 +113,7 @@ class ApiV1 {
         const ultimasMensagens = [];
         for (let otd of body) {
           const ultimaMensagem = new UltimaMensagem(
+            otd["id"],
             otd["id_outro_usuario"],
             otd["nome_outro_usuario"],
             otd["texto"],
@@ -155,6 +156,7 @@ class ApiV1 {
         const mensagens = [];
         for (let otd of body["mensagens"]) {
           const mensagem = new Mensagem(
+            otd["id"],
             otd["origem_id"],
             otd["destino_id"],
             otd["texto"],
@@ -165,6 +167,7 @@ class ApiV1 {
         const ultimasMensagens = [];
         for (let otd of body["ultimas_mensagens"]) {
           const ultimaMensagem = new UltimaMensagem(
+            otd["id"],
             otd["id_outro_usuario"],
             otd["nome_outro_usuario"],
             otd["texto"],

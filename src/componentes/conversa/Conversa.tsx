@@ -24,7 +24,7 @@ function Conversa(props: ConversaProps): JSX.Element {
   return (
     <div className="conversa">
       {props.mensagens.map((mensagem) => (
-        <MensagemChat key={mensagem.enviadaEm.toString()} mensagem={mensagem} />
+        <MensagemChat key={mensagem.id} mensagem={mensagem} />
       ))}
     </div>
   );

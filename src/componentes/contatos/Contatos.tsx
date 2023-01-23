@@ -10,7 +10,7 @@ function Contatos(props: ContatosProps): JSX.Element {
     <div className="contatos">
       {props.ultimasMensagens.map((ultimaMensagem) => (
         <Contato
-          key={ultimaMensagem + ultimaMensagem.contatoId}
+          key={ultimaMensagem.id}
           id={ultimaMensagem.contatoId}
           nome={ultimaMensagem.contatoNome}
           ultimaMensagem={ultimaMensagem.texto}
