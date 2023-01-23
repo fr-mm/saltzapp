@@ -1,7 +1,6 @@
 .mensagem-container {
   display: flex;
   width: 100%;
-  margin-bottom: auto;
 }
 
 .mensagem-container.enviada {
@@ -19,6 +18,14 @@
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   margin: 0.2rem 2rem 0.2rem 2rem;
+  max-width: 60rem;
+}
+
+.texto {
+  white-space: pre-line;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mensagem.enviada {
