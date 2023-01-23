@@ -39,7 +39,7 @@ interface IFetch {
 class ApiV1 {
   readonly url: string;
   readonly pingUrl: string;
-  readonly URL_BASE = "https://flat-files-wear-179-215-242-196.loca.lt";
+  readonly URL_BASE = "http://localhost:8000";
 
   constructor() {
     this.url = this.URL_BASE + "/api_v1/";
@@ -79,10 +79,7 @@ class ApiV1 {
     }
   }
 
-  public async cadastrarUsuario(
-    nome: string,
-    senha: string
-  ): Promise<UsuarioCriado> {
+  public async cadastrarUsuario(nome: string, senha: string): Promise<Usuario> {
     const response = await this.fetch({
       rota: Rota.usuarios,
       metodo: "POST",
@@ -94,7 +91,8 @@ class ApiV1 {
 
     switch (response.status) {
       case 201:
-        return { nome: nome, senha: senha };
+        const body = await response.json();
+        return new Usuario(body["id"], body["nome"], body["token"]);
       case 400:
         const texto = await response.json();
         throw new UsuarioOuSenhaInvalido(texto);

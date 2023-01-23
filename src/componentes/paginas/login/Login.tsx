@@ -16,6 +16,7 @@ import { reducers } from "../../../store";
 import { UsuarioOuSenhaInvalido } from "../../../erros";
 import Alerta from "../../alerta";
 import Loader from "../../loader";
+import { Usuario } from "../../../entidades";
 
 function Login() {
   const [justifyActive, setJustifyActive] = useState("tab1");
@@ -34,24 +35,11 @@ function Login() {
     setJustifyActive(value);
   };
 
-  async function fazerLogin(nome?: string, senha?: string) {
+  async function fazerLogin() {
     setMostrarLoader(true);
-    nome = nome === undefined ? loginNome : nome;
-    senha = senha === undefined ? loginSenha : senha;
     try {
       const usuario = await api.fazerLogin(loginNome, loginSenha);
-      dispatch(
-        reducers.usuario.logar({
-          id: usuario.id,
-          nome: usuario.nome,
-          token: usuario.token,
-        })
-      );
-      localStorage.setItem("id", usuario.id);
-      localStorage.setItem("nome", usuario.nome);
-      localStorage.setItem("token", usuario.token);
-      dispatch(reducers.pagina.mostrarChat());
-      dispatch(reducers.alerta.desativarAnimacao);
+      logarUsuario(usuario);
     } catch (erro) {
       if (erro instanceof UsuarioOuSenhaInvalido) {
         dispatch(reducers.alerta.mostrar("Usuário ou senha inválidos"));
@@ -63,12 +51,10 @@ function Login() {
   }
 
   async function cadastrar() {
+    setMostrarLoader(true);
     try {
-      const usuarioCriado = await api.cadastrarUsuario(
-        cadastroNome,
-        cadastroSenha
-      );
-      await fazerLogin(usuarioCriado.nome, usuarioCriado.senha);
+      const usuario = await api.cadastrarUsuario(cadastroNome, cadastroSenha);
+      logarUsuario(usuario);
     } catch (erro) {
       if (erro instanceof UsuarioOuSenhaInvalido) {
         dispatch(reducers.alerta.mostrar(erro.message));
@@ -76,6 +62,22 @@ function Login() {
         dispatch(reducers.alerta.mostrar("Servidor inacessível"));
       }
     }
+    setMostrarLoader(false);
+  }
+
+  function logarUsuario(usuario: Usuario): void {
+    dispatch(
+      reducers.usuario.logar({
+        id: usuario.id,
+        nome: usuario.nome,
+        token: usuario.token,
+      })
+    );
+    localStorage.setItem("id", usuario.id);
+    localStorage.setItem("nome", usuario.nome);
+    localStorage.setItem("token", usuario.token);
+    dispatch(reducers.pagina.mostrarChat());
+    dispatch(reducers.alerta.desativarAnimacao());
   }
 
   return (
@@ -134,7 +136,7 @@ function Login() {
             <MDBInput
               wrapperClass="mb-4"
               label="Nome"
-              id="form2"
+              id="form3"
               type="text"
               value={cadastroNome}
               onChange={(e) => setCadastroNome(e.target.value)}
@@ -142,7 +144,7 @@ function Login() {
             <MDBInput
               wrapperClass="mb-4"
               label="Senha"
-              id="form3"
+              id="form4"
               type="password"
               value={cadastroSenha}
               onChange={(e) => setCadastroSenha(e.target.value)}
