@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/saltzapp/static/css/main.8ed3e049.css",
-    "main.js": "/saltzapp/static/js/main.12f911b0.js",
+    "main.css": "/saltzapp/static/css/main.04e1b13f.css",
+    "main.js": "/saltzapp/static/js/main.a800130c.js",
     "static/js/787.9ff2f0e8.chunk.js": "/saltzapp/static/js/787.9ff2f0e8.chunk.js",
     "static/media/fa-solid-900.ttf": "/saltzapp/static/media/fa-solid-900.b1a653db79258eeccc5d.ttf",
     "static/media/fa-brands-400.ttf": "/saltzapp/static/media/fa-brands-400.450a5c898f0b184b968b.ttf",
@@ -13,12 +13,12 @@
     "static/media/fa-v4compatibility.ttf": "/saltzapp/static/media/fa-v4compatibility.e314b618134d5be20996.ttf",
     "static/media/fa-v4compatibility.woff2": "/saltzapp/static/media/fa-v4compatibility.4ee7f902d88f819e251c.woff2",
     "index.html": "/saltzapp/index.html",
-    "main.8ed3e049.css.map": "/saltzapp/static/css/main.8ed3e049.css.map",
-    "main.12f911b0.js.map": "/saltzapp/static/js/main.12f911b0.js.map",
+    "main.04e1b13f.css.map": "/saltzapp/static/css/main.04e1b13f.css.map",
+    "main.a800130c.js.map": "/saltzapp/static/js/main.a800130c.js.map",
     "787.9ff2f0e8.chunk.js.map": "/saltzapp/static/js/787.9ff2f0e8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8ed3e049.css",
-    "static/js/main.12f911b0.js"
+    "static/css/main.04e1b13f.css",
+    "static/js/main.a800130c.js"
   ]
 }
