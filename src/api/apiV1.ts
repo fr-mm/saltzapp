@@ -1,11 +1,6 @@
 import { Mensagem, UltimaMensagem, Usuario } from "../entidades";
 import { ServidorInacessivelErro, UsuarioOuSenhaInvalido } from "../erros";
 
-interface UsuarioCriado {
-  nome: string;
-  senha: string;
-}
-
 class RetornoDeMensagens {
   constructor(
     readonly mensagens: Mensagem[],
@@ -39,7 +34,8 @@ interface IFetch {
 class ApiV1 {
   readonly url: string;
   readonly pingUrl: string;
-  readonly URL_BASE = "http://localhost:8000";
+  readonly URL_BASE =
+    "https://f590-2804-14d-7283-80c5-b1e4-29c3-1ea3-3248.sa.ngrok.io";
 
   constructor() {
     this.url = this.URL_BASE + "/api_v1/";
